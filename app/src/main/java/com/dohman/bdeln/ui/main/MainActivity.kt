@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,11 +47,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        when (view) {
-        }
-    }
-
-    private fun setupOnClickListeners() {
+        val pressed = view as? Button
+        // pressed?.text
     }
 
     private fun setupLetterRecycler() = v_letter_recycler.apply {
@@ -58,4 +56,36 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
         adapter = fastAdapter
     }
+
+    // region OnClickListeners
+    private fun setupOnClickListeners() {
+        btn_a.setOnClickListener(this)
+        btn_b.setOnClickListener(this)
+        btn_c.setOnClickListener(this)
+        btn_d.setOnClickListener(this)
+        btn_e.setOnClickListener(this)
+        btn_f.setOnClickListener(this)
+        btn_g.setOnClickListener(this)
+        btn_h.setOnClickListener(this)
+        btn_i.setOnClickListener(this)
+        btn_j.setOnClickListener(this)
+        btn_k.setOnClickListener(this)
+        btn_l.setOnClickListener(this)
+        btn_m.setOnClickListener(this)
+        btn_n.setOnClickListener(this)
+        btn_o.setOnClickListener(this)
+        btn_p.setOnClickListener(this)
+        btn_r.setOnClickListener(this)
+        btn_s.setOnClickListener(this)
+        btn_t.setOnClickListener(this)
+        btn_u.setOnClickListener(this)
+        btn_v.setOnClickListener(this)
+        btn_x.setOnClickListener(this)
+        btn_y.setOnClickListener(this)
+        btn_z.setOnClickListener(this)
+        btn_aa.setOnClickListener(this)
+        btn_ae.setOnClickListener(this)
+        btn_oe.setOnClickListener(this)
+    }
+    // endregion
 }
