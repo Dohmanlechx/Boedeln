@@ -5,8 +5,9 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.dohman.bdeln.R
 import com.mikepenz.fastadapter.items.AbstractItem
+import kotlinx.android.synthetic.main.item_letter.view.*
 
-class LetterItem() : AbstractItem<LetterItem, LetterItem.ViewHolder>() {
+class LetterItem(private val letter: Char) : AbstractItem<LetterItem, LetterItem.ViewHolder>() {
     override fun getType(): Int = R.id.adapter_type_letter_item
     override fun getViewHolder(v: View): ViewHolder = ViewHolder(v)
     override fun getLayoutRes(): Int = R.layout.item_letter
@@ -14,7 +15,9 @@ class LetterItem() : AbstractItem<LetterItem, LetterItem.ViewHolder>() {
     override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
 
-
+        if (letter == '-') {
+            holder.itemView.txt_letter.text = "-"
+        }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

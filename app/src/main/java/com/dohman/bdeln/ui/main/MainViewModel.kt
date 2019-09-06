@@ -24,7 +24,7 @@ class MainViewModel : ViewModel() {
         return wordsCount
     }
 
-    fun getWordBy(ctx: Context, lineNumber: Int): String {
+    fun getWordFrom(lineNumber: Int, ctx: Context): String {
         val reader = BufferedReader(InputStreamReader(ctx.assets.open("words")))
         var iterator = 0
 
