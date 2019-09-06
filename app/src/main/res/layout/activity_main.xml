@@ -47,6 +47,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="A"
             android:textSize="32sp" />
 
@@ -57,6 +58,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="B"
             android:textSize="32sp" />
 
@@ -67,6 +69,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="C"
             android:textSize="32sp" />
 
@@ -77,6 +80,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="D"
             android:textSize="32sp" />
 
@@ -87,6 +91,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="E"
             android:textSize="32sp" />
 
@@ -97,6 +102,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="F"
             android:textSize="32sp" />
 
@@ -107,6 +113,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="G"
             android:textSize="32sp" />
 
@@ -130,6 +137,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="H"
             android:textSize="32sp" />
 
@@ -140,6 +148,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="I"
             android:textSize="32sp" />
 
@@ -150,6 +159,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="J"
             android:textSize="32sp" />
 
@@ -160,6 +170,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="K"
             android:textSize="32sp" />
 
@@ -170,6 +181,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="L"
             android:textSize="32sp" />
 
@@ -180,6 +192,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="M"
             android:textSize="32sp" />
 
@@ -190,6 +203,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="N"
             android:textSize="32sp" />
 
@@ -213,6 +227,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="O"
             android:textSize="32sp" />
 
@@ -223,6 +238,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="P"
             android:textSize="32sp" />
 
@@ -233,6 +249,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="R"
             android:textSize="32sp" />
 
@@ -243,6 +260,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="S"
             android:textSize="32sp" />
 
@@ -253,6 +271,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="T"
             android:textSize="32sp" />
 
@@ -263,6 +282,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="U"
             android:textSize="32sp" />
 
@@ -273,6 +293,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="V"
             android:textSize="32sp" />
 
@@ -297,6 +318,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="X"
             android:textSize="32sp" />
 
@@ -307,6 +329,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="Y"
             android:textSize="32sp" />
 
@@ -317,6 +340,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="Z"
             android:textSize="32sp" />
 
@@ -327,6 +351,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="Å"
             android:textSize="32sp" />
 
@@ -337,6 +362,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="Ä"
             android:textSize="32sp" />
 
@@ -347,6 +373,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/rounded_bg"
             android:gravity="center"
+            android:stateListAnimator="@null"
             android:text="Ö"
             android:textSize="32sp" />
 

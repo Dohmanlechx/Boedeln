@@ -6,8 +6,19 @@ import androidx.lifecycle.ViewModel
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.util.*
 
 class MainViewModel : ViewModel() {
+
+    fun loopTheWordAndGetIndexes(word: String, letter: String): List<Int> {
+        val affectedIndexes = mutableListOf<Int>()
+
+        for (index in word.indices) {
+            if (word[index].toString() == letter.toLowerCase(Locale.ROOT)) affectedIndexes.add(index)
+        }
+
+        return affectedIndexes
+    }
 
     fun getWordsCount(ctx: Context): Int {
         val reader = BufferedReader(InputStreamReader(ctx.assets.open("words")))

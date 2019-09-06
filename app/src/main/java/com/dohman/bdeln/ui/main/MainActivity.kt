@@ -1,9 +1,7 @@
 package com.dohman.bdeln.ui.main
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -23,32 +21,45 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val itemAdapter = ItemAdapter<AbstractItem<*, *>>()
     private val fastAdapter = FastAdapter.with<AbstractItem<*, *>, ItemAdapter<AbstractItem<*, *>>>(itemAdapter)
 
+    private var wordsCount: Int = 0
+    private var word: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         vm = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
+        wordsCount = vm.getWordsCount(applicationContext)
+        word = vm.getWordFrom(lineNumber = wordsCount.randomize(), ctx = applicationContext)
+
         setupOnClickListeners()
         setupLetterRecycler()
-
-        val wordsCount = vm.getWordsCount(applicationContext)
-        val word = vm.getWordFrom(lineNumber = wordsCount.randomize(), ctx = applicationContext)
 
         buildUnderScores(word = word)
     }
 
     private fun buildUnderScores(word: String) {
         for (char in word) {
-            itemAdapter.add(LetterItem(char))
+            itemAdapter.add(LetterItem(char.toString(), isInit = true))
         }
 
         Toast.makeText(applicationContext, "$word ${word.length}", Toast.LENGTH_LONG).show()
     }
 
+    private fun manageTheUnderScores(letter: String) {
+        val affectedIndexes = vm.loopTheWordAndGetIndexes(word = word, letter = letter)
+
+        affectedIndexes.forEach { index ->
+            itemAdapter.remove(index)
+            itemAdapter.add(index, LetterItem(letter))
+
+        }
+    }
+
     override fun onClick(view: View?) {
         val pressed = view as? Button
-        // pressed?.text
+        manageTheUnderScores(pressed?.text.toString())
     }
 
     private fun setupLetterRecycler() = v_letter_recycler.apply {
