@@ -13,7 +13,6 @@ import java.util.*
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     private var lives: Int = 8
     private var correctGuessCount = 0
-    private var wordsCount: Int = 0
     private var word: String = ""
 
     val getLives: Int
@@ -32,8 +31,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun reset() {
         lives = 8
         correctGuessCount = 0
-        wordsCount = getWordsCount(getApplication())
-        word = getWordFrom(lineNumber = wordsCount.randomize(), ctx = getApplication())
+
+        do {
+            word = getWordFrom(lineNumber = getWordsCount(getApplication()).randomize(), ctx = getApplication())
+        } while (word.length > 15)
     }
 
     fun loopTheWordAndGetIndexes(letter: String): List<Int> {

@@ -32,8 +32,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initGame() {
-        Util.getAlphabetAsArray().forEach { manageTheButton(enable = true, letter = it) }
         vm.reset()
+        Util.getAlphabetAsArray().forEach { manageTheButton(enable = true, letter = it) }
         txt_lives.text = "${vm.getLives} chances"
         buildUnderScores(word = vm.getWord)
 
@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             vm.removeLife()
             if (vm.getLives <= 0) {
                 initGame()
-                return
             } else {
                 txt_lives.text = "${vm.getLives} chances"
             }
@@ -111,9 +110,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View?) {
         val pressed = view as? Button
+        val pressedLetter = pressed?.text.toString()
         updateTheViews(
-            successIndexes = vm.loopTheWordAndGetIndexes(letter = pressed?.text.toString()),
-            letter = pressed?.text.toString()
+            successIndexes = vm.loopTheWordAndGetIndexes(letter = pressedLetter),
+            letter = pressedLetter
         )
     }
 
