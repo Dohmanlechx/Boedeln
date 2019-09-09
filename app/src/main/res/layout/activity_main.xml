@@ -6,15 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/img_hangman"
+    <!--    <androidx.appcompat.widget.AppCompatImageView-->
+    <!--        android:id="@+id/img_hangman"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:background="@color/colorPrimary"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/v_letter_recycler"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_lives"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:textSize="60sp"
         app:layout_constraintBottom_toTopOf="@id/v_letter_recycler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="8 lives" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/v_letter_recycler"

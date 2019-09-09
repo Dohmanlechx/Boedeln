@@ -1,26 +1,45 @@
 package com.dohman.bdeln.ui.main
 
+import android.app.Application
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
+import com.dohman.bdeln.util.randomize
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.util.*
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
+    private var lives: Int = 8
+    private var wordsCount: Int = 0
+    private var word: String = ""
 
-    fun loopTheWordAndGetIndexes(word: String, letter: String): List<Int> {
-        val affectedIndexes = mutableListOf<Int>()
+    val getLives: Int
+        get() = lives
 
-        for (index in word.indices) {
-            if (word[index].toString() == letter.toLowerCase(Locale.ROOT)) affectedIndexes.add(index)
-        }
+    val getWord: String
+        get() = word
 
-        return affectedIndexes
+    fun removeLife() = lives--
+
+    fun reset() {
+        lives = 8
+        wordsCount = getWordsCount(getApplication())
+        word = getWordFrom(lineNumber = wordsCount.randomize(), ctx = getApplication())
     }
 
-    fun getWordsCount(ctx: Context): Int {
+    fun loopTheWordAndGetIndexes(letter: String): List<Int> {
+        val successIndexes = mutableListOf<Int>()
+
+        for (index in word.indices) {
+            if (word[index].toString() == letter.toLowerCase(Locale.ROOT)) successIndexes.add(index)
+        }
+
+        return successIndexes
+    }
+
+    private fun getWordsCount(ctx: Context): Int {
         val reader = BufferedReader(InputStreamReader(ctx.assets.open("words")))
         var wordsCount = 0
 
@@ -35,7 +54,7 @@ class MainViewModel : ViewModel() {
         return wordsCount
     }
 
-    fun getWordFrom(lineNumber: Int, ctx: Context): String {
+    private fun getWordFrom(lineNumber: Int, ctx: Context): String {
         val reader = BufferedReader(InputStreamReader(ctx.assets.open("words")))
         var iterator = 0
 

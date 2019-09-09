@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dohman.bdeln.R
 import com.dohman.bdeln.ui.main.custom.LetterItem
-import com.dohman.bdeln.util.randomize
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
@@ -21,45 +20,54 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val itemAdapter = ItemAdapter<AbstractItem<*, *>>()
     private val fastAdapter = FastAdapter.with<AbstractItem<*, *>, ItemAdapter<AbstractItem<*, *>>>(itemAdapter)
 
-    private var wordsCount: Int = 0
-    private var word: String = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         vm = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-        wordsCount = vm.getWordsCount(applicationContext)
-        word = vm.getWordFrom(lineNumber = wordsCount.randomize(), ctx = applicationContext)
-
         setupOnClickListeners()
         setupLetterRecycler()
 
-        buildUnderScores(word = word)
+        initGame()
+    }
+
+    private fun initGame() {
+        vm.reset()
+        txt_lives.text = "${vm.getLives} chances"
+        buildUnderScores(word = vm.getWord)
+
+        Toast.makeText(applicationContext, "${vm.getWord} ${vm.getWord.length}", Toast.LENGTH_LONG).show()
     }
 
     private fun buildUnderScores(word: String) {
+        itemAdapter.clear()
         for (char in word) {
             itemAdapter.add(LetterItem(char.toString(), isInit = true))
         }
-
-        Toast.makeText(applicationContext, "$word ${word.length}", Toast.LENGTH_LONG).show()
     }
 
-    private fun manageTheUnderScores(letter: String) {
-        val affectedIndexes = vm.loopTheWordAndGetIndexes(word = word, letter = letter)
+    private fun checkTheInput(letter: String) {
+        val successIndexes = vm.loopTheWordAndGetIndexes(letter = letter)
 
-        affectedIndexes.forEach { index ->
-            itemAdapter.remove(index)
-            itemAdapter.add(index, LetterItem(letter))
-
+        if (successIndexes.isEmpty()) {
+            vm.removeLife()
+            if (vm.getLives <= 0) {
+                initGame()
+            } else {
+                txt_lives.text = "${vm.getLives} chances"
+            }
+        } else {
+            successIndexes.forEach { index ->
+                itemAdapter.remove(index)
+                itemAdapter.add(index, LetterItem(letter))
+            }
         }
     }
 
     override fun onClick(view: View?) {
         val pressed = view as? Button
-        manageTheUnderScores(pressed?.text.toString())
+        checkTheInput(pressed?.text.toString())
     }
 
     private fun setupLetterRecycler() = v_letter_recycler.apply {
