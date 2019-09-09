@@ -12,19 +12,26 @@ import java.util.*
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     private var lives: Int = 8
+    private var correctGuessCount = 0
     private var wordsCount: Int = 0
     private var word: String = ""
 
     val getLives: Int
         get() = lives
 
+    val getCorrectGuessCount: Int
+        get() = correctGuessCount
+
     val getWord: String
         get() = word
 
     fun removeLife() = lives--
 
+    fun updateCorrectGuessCount() = correctGuessCount++
+
     fun reset() {
         lives = 8
+        correctGuessCount = 0
         wordsCount = getWordsCount(getApplication())
         word = getWordFrom(lineNumber = wordsCount.randomize(), ctx = getApplication())
     }

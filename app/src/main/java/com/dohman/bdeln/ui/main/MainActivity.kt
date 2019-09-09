@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dohman.bdeln.R
 import com.dohman.bdeln.ui.main.custom.LetterItem
+import com.dohman.bdeln.util.Util
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
@@ -26,13 +27,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         vm = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-        setupOnClickListeners()
         setupLetterRecycler()
-
         initGame()
     }
 
     private fun initGame() {
+        Util.getAlphabetAsArray().forEach { manageTheButton(enable = true, letter = it) }
         vm.reset()
         txt_lives.text = "${vm.getLives} chances"
         buildUnderScores(word = vm.getWord)
@@ -47,27 +47,74 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun checkTheInput(letter: String) {
-        val successIndexes = vm.loopTheWordAndGetIndexes(letter = letter)
+    private fun updateTheViews(successIndexes: List<Int>, letter: String) {
+        manageTheButton(enable = false, letter = letter)
 
         if (successIndexes.isEmpty()) {
             vm.removeLife()
             if (vm.getLives <= 0) {
                 initGame()
+                return
             } else {
                 txt_lives.text = "${vm.getLives} chances"
             }
         } else {
             successIndexes.forEach { index ->
+                vm.updateCorrectGuessCount()
                 itemAdapter.remove(index)
                 itemAdapter.add(index, LetterItem(letter))
             }
+
+            if (vm.getCorrectGuessCount == vm.getWord.length) initGame()
+        }
+    }
+
+    private fun manageTheButton(enable: Boolean, letter: String) {
+        val button = when (letter) {
+            "A" -> btn_a
+            "B" -> btn_b
+            "C" -> btn_c
+            "D" -> btn_d
+            "E" -> btn_e
+            "F" -> btn_f
+            "G" -> btn_g
+            "H" -> btn_h
+            "I" -> btn_i
+            "J" -> btn_j
+            "K" -> btn_k
+            "L" -> btn_l
+            "M" -> btn_m
+            "N" -> btn_n
+            "O" -> btn_o
+            "P" -> btn_p
+            "R" -> btn_r
+            "S" -> btn_s
+            "T" -> btn_t
+            "U" -> btn_u
+            "V" -> btn_v
+            "X" -> btn_x
+            "Y" -> btn_y
+            "Z" -> btn_z
+            "Å" -> btn_aa
+            "Ä" -> btn_ae
+            else -> btn_oe
+        }
+
+        if (enable) {
+            button.setOnClickListener(this)
+            button.alpha = 1.0f
+        } else {
+            button.setOnClickListener(null)
+            button.alpha = 0.5f
         }
     }
 
     override fun onClick(view: View?) {
         val pressed = view as? Button
-        checkTheInput(pressed?.text.toString())
+        updateTheViews(
+            successIndexes = vm.loopTheWordAndGetIndexes(letter = pressed?.text.toString()),
+            letter = pressed?.text.toString()
+        )
     }
 
     private fun setupLetterRecycler() = v_letter_recycler.apply {
@@ -75,36 +122,4 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
         adapter = fastAdapter
     }
-
-    // region OnClickListeners
-    private fun setupOnClickListeners() {
-        btn_a.setOnClickListener(this)
-        btn_b.setOnClickListener(this)
-        btn_c.setOnClickListener(this)
-        btn_d.setOnClickListener(this)
-        btn_e.setOnClickListener(this)
-        btn_f.setOnClickListener(this)
-        btn_g.setOnClickListener(this)
-        btn_h.setOnClickListener(this)
-        btn_i.setOnClickListener(this)
-        btn_j.setOnClickListener(this)
-        btn_k.setOnClickListener(this)
-        btn_l.setOnClickListener(this)
-        btn_m.setOnClickListener(this)
-        btn_n.setOnClickListener(this)
-        btn_o.setOnClickListener(this)
-        btn_p.setOnClickListener(this)
-        btn_r.setOnClickListener(this)
-        btn_s.setOnClickListener(this)
-        btn_t.setOnClickListener(this)
-        btn_u.setOnClickListener(this)
-        btn_v.setOnClickListener(this)
-        btn_x.setOnClickListener(this)
-        btn_y.setOnClickListener(this)
-        btn_z.setOnClickListener(this)
-        btn_aa.setOnClickListener(this)
-        btn_ae.setOnClickListener(this)
-        btn_oe.setOnClickListener(this)
-    }
-    // endregion
 }

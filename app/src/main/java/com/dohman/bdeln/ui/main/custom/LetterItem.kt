@@ -13,8 +13,12 @@ class LetterItem(private val letter: String, private val isInit: Boolean = false
     override fun getViewHolder(v: View): ViewHolder = ViewHolder(v)
     override fun getLayoutRes(): Int = R.layout.item_letter
 
+    private var isSolved = false
+
     override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
+
+        if (!isInit) isSolved = true
 
         holder.itemView.txt_letter.text = if (isInit) "_" else letter
 
