@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dohman.bdeln.R
 import com.dohman.bdeln.ui.main.custom.LetterItem
 import com.dohman.bdeln.util.Util
+import com.dohman.bdeln.util.isWrongGuess
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
@@ -42,29 +43,33 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun buildUnderScores(word: String) {
         itemAdapter.clear()
+
+        val underscore = LetterItem(isUnderscore = true)
+
         for (char in word) {
-            itemAdapter.add(LetterItem(char.toString(), isInit = true))
+            itemAdapter.add(underscore)
         }
     }
 
-    private fun updateTheViews(successIndexes: List<Int>, letter: String) {
+    private fun updateTheViews(resultIndexesFromGuess: List<Int>, letter: String) {
         manageTheButton(enable = false, letter = letter)
 
-        if (successIndexes.isEmpty()) {
+        if (resultIndexesFromGuess.isWrongGuess()) {
             vm.removeLife()
-            if (vm.getLives <= 0) {
+
+            if (vm.isGameOver()) {
                 initGame()
             } else {
                 txt_lives.text = "${vm.getLives} chances"
             }
         } else {
-            successIndexes.forEach { index ->
-                vm.updateCorrectGuessCount()
+            resultIndexesFromGuess.forEach { index ->
+                vm.updateShownLetterCount()
                 itemAdapter.remove(index)
                 itemAdapter.add(index, LetterItem(letter))
             }
 
-            if (vm.getCorrectGuessCount == vm.getWord.length) initGame()
+            if (vm.getShownLetterCount == vm.getWord.length) initGame()
         }
     }
 
@@ -111,8 +116,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         val pressed = view as? Button
         val pressedLetter = pressed?.text.toString()
+
         updateTheViews(
-            successIndexes = vm.loopTheWordAndGetIndexes(letter = pressedLetter),
+            resultIndexesFromGuess = vm.iterateWordForIndexHits(letter = pressedLetter),
             letter = pressedLetter
         )
     }

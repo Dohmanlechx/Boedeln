@@ -12,32 +12,33 @@ import java.util.*
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     private var lives: Int = 8
-    private var correctGuessCount = 0
+    private var shownLetterCount = 0
     private var word: String = ""
 
     val getLives: Int
         get() = lives
 
-    val getCorrectGuessCount: Int
-        get() = correctGuessCount
+    val getShownLetterCount: Int
+        get() = shownLetterCount
 
     val getWord: String
         get() = word
 
     fun removeLife() = lives--
-
-    fun updateCorrectGuessCount() = correctGuessCount++
+    fun isGameOver() = getLives <= 0
+    fun updateShownLetterCount() = shownLetterCount++
 
     fun reset() {
         lives = 8
-        correctGuessCount = 0
+        shownLetterCount = 0
 
         do {
-            word = getWordFrom(lineNumber = getWordsCount(getApplication()).randomize(), ctx = getApplication())
+            word =
+                getWordFromRowInFile(lineNumber = getWordsCount(getApplication()).randomize(), ctx = getApplication())
         } while (word.length > 15)
     }
 
-    fun loopTheWordAndGetIndexes(letter: String): List<Int> {
+    fun iterateWordForIndexHits(letter: String): List<Int> {
         val successIndexes = mutableListOf<Int>()
 
         for (index in word.indices) {
@@ -62,7 +63,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return wordsCount
     }
 
-    private fun getWordFrom(lineNumber: Int, ctx: Context): String {
+    private fun getWordFromRowInFile(lineNumber: Int, ctx: Context): String {
         val reader = BufferedReader(InputStreamReader(ctx.assets.open("words")))
         var iterator = 0
 

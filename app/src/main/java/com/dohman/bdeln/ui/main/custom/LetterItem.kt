@@ -7,7 +7,7 @@ import com.dohman.bdeln.R
 import com.mikepenz.fastadapter.items.AbstractItem
 import kotlinx.android.synthetic.main.item_letter.view.*
 
-class LetterItem(private val letter: String, private val isInit: Boolean = false) :
+class LetterItem(private val letter: String? = null, private val isUnderscore: Boolean = false) :
     AbstractItem<LetterItem, LetterItem.ViewHolder>() {
     override fun getType(): Int = R.id.adapter_type_letter_item
     override fun getViewHolder(v: View): ViewHolder = ViewHolder(v)
@@ -16,7 +16,7 @@ class LetterItem(private val letter: String, private val isInit: Boolean = false
     override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
 
-        holder.itemView.txt_letter.text = if (isInit) "_" else letter
+        holder.itemView.txt_letter.text = if (isUnderscore) "_" else letter
 
         if (letter == "-") {
             holder.itemView.txt_letter.text = "-"
