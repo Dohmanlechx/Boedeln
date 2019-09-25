@@ -29,14 +29,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         vm = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
         setupLetterRecycler()
-        initGame()
+        startNewRound()
     }
 
-    private fun initGame() {
-        vm.reset()
+    private fun startNewRound() {
+        vm.resetRound()
         Util.getAlphabetAsArray().forEach { manageTheButton(enable = true, letter = it) }
-        txt_lives.text = "${vm.getLives} chances"
         buildUnderScores(word = vm.getWord)
+        txt_lives.text = "${vm.getLives} chances"
 
         Toast.makeText(applicationContext, "${vm.getWord} ${vm.getWord.length}", Toast.LENGTH_LONG).show()
     }
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             vm.removeLife()
 
             if (vm.isGameOver()) {
-                initGame()
+                startNewRound()
             } else {
                 txt_lives.text = "${vm.getLives} chances"
             }
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 itemAdapter.add(index, LetterItem(letter))
             }
 
-            if (vm.getShownLetterCount == vm.getWord.length) initGame()
+            if (vm.getShownLetterCount == vm.getWord.length) startNewRound()
         }
     }
 

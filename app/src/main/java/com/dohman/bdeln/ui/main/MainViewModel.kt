@@ -28,7 +28,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun isGameOver() = getLives <= 0
     fun updateShownLetterCount() = shownLetterCount++
 
-    fun reset() {
+    fun resetRound() {
         lives = 8
         shownLetterCount = 0
 
